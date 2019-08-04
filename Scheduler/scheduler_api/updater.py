@@ -1,20 +1,20 @@
-import logging
-
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.executors.pool import ProcessPoolExecutor, ThreadPoolExecutor
-# from django_apscheduler.jobstores import register_events, register_job
+from apscheduler.jobstores.mongodb import MongoDBJobStore
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 
-from django.conf import settings
 
-# Create scheduler to run in a thread inside the application process
-scheduler = BackgroundScheduler()
-
-def start():
-    # if settings.DEBUG:
-    #   	# Hook into the apscheduler logger
-    #     logging.basicConfig(filename='/tmp/log', level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s : %(message)s')
-    #     logging.getLogger('apscheduler').setLevel(logging.DEBUG)
-    # Add the scheduled jobs to the Django admin interface
-    # register_events(scheduler)
-
-    scheduler.start()
+jobstores = {
+    'mongo': MongoDBJobStore(),
+    'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
+}
+executors = {
+    'default': ThreadPoolExecutor(20),
+    'processpool': ProcessPoolExecutor(5)
+}
+job_defaults = {
+    'coalesce': False,
+    'max_instances': 3
+}
+# scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=utc)
+scheduler = BackgroundScheduler(executors=executors, job_defaults=job_defaults)
