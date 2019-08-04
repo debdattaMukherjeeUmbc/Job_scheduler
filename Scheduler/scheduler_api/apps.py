@@ -2,11 +2,12 @@
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
+from . import updater
 
 
 class SchedulerApiConfig(AppConfig):
     name = 'scheduler_api'
 
     def ready(self):
-        from . import updater
+    	print 'one'
         updater.start()
