@@ -67,13 +67,18 @@ class ScheduleSerializer(serializers.ModelSerializer):
                 f= open("/Users/dm029579/.virtualenvs/SAP/Job_scheduler/my_files2/yayyy.txt","w+")
             def myjob():
                 print('hello')
-            # def run_bash():
-            #     bashCommand = "echo diya hi"
-            #     import subprocess
+            def run_bash():
+                # bashCommand = "echo diya hi"
+                bashCommand = "ls"
+                import subprocess
+                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+                output, error = process.communicate()
+                print output
+                # print error
             # trigger_time = datetime.datetime.now() + datetime.timedelta(seconds=50)
             # scheduler.add_job(_trigger_command, "interval", seconds=20, id=str(schedule.id))
             trigger_time = datetime.datetime.now() + datetime.timedelta(seconds=5)
-            scheduler.add_job(myjob, 'date', run_date=trigger_time, id=str(schedule.id))
+            scheduler.add_job(run_bash, 'date', run_date=trigger_time, id=str(schedule.id))
             # scheduler.add_job(_trigger_command, trigger='cron', minute='*')
         add_processing_job()
         # transaction.on_commit(add_processing_job)
