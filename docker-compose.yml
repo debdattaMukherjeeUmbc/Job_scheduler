@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - 127.0.0.1:27017:27017
+  web:
+    build: .
+    command: python Scheduler/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+
