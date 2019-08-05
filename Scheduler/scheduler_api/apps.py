@@ -7,7 +7,3 @@ from . import updater
 
 class SchedulerApiConfig(AppConfig):
     name = 'scheduler_api'
-
-    def ready(self):
-    	print 'one'
-        updater.start()
