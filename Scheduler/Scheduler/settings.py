@@ -82,21 +82,6 @@ DATABASES = {
     }
 }
 
-# This scheduler config will:
-# - Store jobs in the project database
-# - Execute jobs in threads inside the application process
-# SCHEDULER_CONFIG = {
-#     "apscheduler.jobstores.default": {
-#         "class": "django_apscheduler.jobstores:DjangoJobStore"
-#     },
-#     'apscheduler.executors.processpool': {
-#         "type": "threadpool"
-#     },
-# }
-# SCHEDULER_AUTOSTART = True
-
-# APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
